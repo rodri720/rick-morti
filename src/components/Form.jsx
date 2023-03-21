@@ -1,5 +1,5 @@
 import React from 'react';
-import { validateUsername, validatePassword } from "./validate";
+import validate from './validate';
 
 const Form = () => {
   const [userData, setUserData] = React.useState({ username: '', password: '' });
@@ -13,9 +13,8 @@ const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const usernameError = validateUsername(userData.username);
-    const passwordError = validatePassword(userData.password);
-    setErrors({ username: usernameError, password: passwordError });
+    const errors = validate(userData);
+    setErrors(errors);
   };
 
   return (

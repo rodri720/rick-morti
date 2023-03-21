@@ -1,29 +1,37 @@
-
 import SearchBar from './SearchBar.jsx';
+import { Link } from 'react-router-dom';
 
-function Nav({setCharacters}) {
-const example = {
-name: 'Morty Smith',
-species: 'Human',
-gender: 'Male',
-image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
+const Navigation = ({ setCharacters }) => {
+  const example = {
+    name: 'Morty Smith',
+    species: 'Human',
+    gender: 'Male',
+    image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
+  };
+
+  const onSearch = (characterID) => {
+    fetch(`https://rickandmortyapi.com/api/character/${characterID}`)
+      .then(response => response.json())
+      .then(data => setCharacters([data]))
+      .catch(error => console.log(error));
+  };
+
+  return (
+    <nav style={{ backgroundColor: '#222', color: '#fff', padding: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h1 style={{ margin: 0 }}>React - Rick and Morty</h1>
+        <SearchBar onSearch={onSearch} style={{ marginLeft: '10px' }} />
+      </div>
+      <div>
+        <Link to="/app">App</Link>
+        <Link to="/characterlist">CharacterList</Link>
+        <Link to="/form">Form</Link>
+        <Link to="/searchbar">SearchBar</Link>
+        <Link to="/nav">Nav</Link>
+        <Link to="/cards">Cards</Link>
+      </div>
+    </nav>
+  );
 };
 
-const onSearch = (characterID) => {
-//Aquí debemos hacer el llamado a la API para obtener los datos del personaje con ID characterID.
-//Una vez obtenidos los datos, los agregamos al estado characters usando setCharacters.
-//Por ahora, agregamos el personaje de ejemplo
-setCharacters([example]);
-};
-
-return (
-<nav style={{ backgroundColor: '#222', color: '#fff', padding: '10px' }}>
-<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-<h1 style={{ margin: 0 }}>React - Rick and Morty</h1>
-<SearchBar onSearch={onSearch} style={{ marginLeft: '10px' }} />
-</div>
-</nav>
-);
-}
-
-export default Nav;
+export default Navigation;

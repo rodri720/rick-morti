@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Cards from "./components/Cards";
 import SearchBar from './components/SearchBar';
 import CharacterList from './components/CharacterList';
 import Form from './components/Form';
 import './index.css';
 import './App.css';
-import { createRoot } from 'react-dom';
-
-import Rutas from './components/Routes';
 
 const PersonajesApp = () => {
   const [characters, setCharacters] = useState([]);
@@ -36,19 +33,17 @@ const PersonajesApp = () => {
   }, [access, navigate]);
 
   return (
-    createRoot(document.getElementById('root')).render(
-      <div className='App'>
-        <h1>Personajes de Rick y Morty</h1>
-        <Rutas />
-        <SearchBar onSearch={handleSearch} />
-        <hr />
-        <div>
-          <Cards characters={characters} />
-        </div>
-        <CharacterList characters={characters} />
-        <Form login={login} />
+    <div className='App'>
+      <h1>Personajes de Rick y Morty</h1>
+      <Link to="/">Home</Link>
+      <SearchBar onSearch={handleSearch} />
+      <hr />
+      <div>
+        <Cards characters={characters} />
       </div>
-    )
+      <CharacterList characters={characters} />
+      <Form login={login} />
+    </div>
   );
 };
 
