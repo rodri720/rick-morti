@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import React from "react";
+
+
 
 const CardContainer = styled.div`
   display: flex;

@@ -4,8 +4,13 @@ import Cards from "./components/Cards";
 import SearchBar from './components/SearchBar';
 import CharacterList from './components/CharacterList';
 import Form from './components/Form';
+import './index.css';
+import './App.css';
+import { createRoot } from 'react-dom';
 
-const App = () => {
+import Rutas from './components/Routes';
+
+const PersonajesApp = () => {
   const [characters, setCharacters] = useState([]);
   const [access, setAccess] = useState(false);
   const username = 'ejemplo@gmail.com';
@@ -31,17 +36,20 @@ const App = () => {
   }, [access, navigate]);
 
   return (
-    <div className='App'>
-      <h1>Personajes de Rick y Morty</h1>
-      <SearchBar onSearch={handleSearch} />
-      <hr />
-      <div>
-        <Cards characters={characters} />
+    createRoot(document.getElementById('root')).render(
+      <div className='App'>
+        <h1>Personajes de Rick y Morty</h1>
+        <Rutas />
+        <SearchBar onSearch={handleSearch} />
+        <hr />
+        <div>
+          <Cards characters={characters} />
+        </div>
+        <CharacterList characters={characters} />
+        <Form login={login} />
       </div>
-      <CharacterList characters={characters} />
-      <Form login={login} />
-    </div>
+    )
   );
 };
 
-export default App;
+export default PersonajesApp;
