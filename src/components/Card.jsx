@@ -21,12 +21,12 @@ export default function Card({ name, species, gender, image, onClose }) {
   return (
     <DivStyled>
       <ButtonComponent>
-        <CloseButton onClick={onClose}>X</CloseButton>
+        <CloseButton onClick={onClose}></CloseButton>
       </ButtonComponent>
       <h2>{name}</h2>
       <h2>{species}</h2>
       <h2>{gender}</h2>
-      <img src={image} alt="Not found" />
+      <img src={image} alt="https://i.pinimg.com/originals/31/30/f1/3130f126b285a41d00af4873b18d4fc5.jpg" />
     </DivStyled>
   )
 }

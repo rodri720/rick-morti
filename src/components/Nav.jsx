@@ -1,7 +1,7 @@
 import SearchBar from './SearchBar.jsx';
 import { Link } from 'react-router-dom';
 
-const Navigation = ({ setCharacters }) => {
+const Navigation = ({ onSearch }) => {
   const example = {
     name: 'Morty Smith',
     species: 'Human',
@@ -9,12 +9,7 @@ const Navigation = ({ setCharacters }) => {
     image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
   };
 
-  const onSearch = (characterID) => {
-    fetch(`https://rickandmortyapi.com/api/character/${characterID}`)
-      .then(response => response.json())
-      .then(data => setCharacters([data]))
-      .catch(error => console.log(error));
-  };
+  console.log(example); // Example usage of the variable
 
   return (
     <nav style={{ backgroundColor: '#222', color: '#fff', padding: '10px' }}>
