@@ -1,19 +1,24 @@
 {
-  "name": "rikiymorti",
+  "name": "rick-and-morty",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cra-template": "1.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "crypto-browserify": "^3.12.0",
+    "node": "^19.8.1",
+    "nodemon": "^2.0.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.8.2",
+    "react-scripts": "^4.0.3",
     "styled-components": "^5.3.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

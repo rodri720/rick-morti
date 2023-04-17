@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
-import { useNavigate, Link, Routes, Route } from 'react-router-dom';
+import { useNavigate, Link, Route } from 'react-router-dom';
+import axios from 'axios';
 import Cards from "./components/Cards";
 import SearchBar from './components/SearchBar';
 import CharacterList from './components/CharacterList';
@@ -8,56 +9,52 @@ import Navigation from './components/Nav';
 import './index.css';
 import './App.css';
 
-const PersonajesApp = () => {
+
+function PersonajesApp() {
   const [characters, setCharacters] = useState([]);
   const [access, setAccess] = useState(false);
   const navigate = useNavigate();
-  const username = 'ejemplo@gmail.com';
-  const password = '123456';
+  //const username = 'ejemplo@gmail.com';
+  //const password = '123456';
 
-  /* const handleSearch = (character) => {
-    
-    const newCharacters = [...characters, character];
-    setCharacters(newCharacters);
-  }; */
   const onSearch = (characterID) => {
     fetch(`https://rickandmortyapi.com/api/character/${characterID}`)
       .then((response) => response.json())
-       
       .then((data) => setCharacters([...characters, data]))
       .catch((error) => console.log(error));
   };
 
-  const login = (userData) => {
-    
-    if (userData.username === username && userData.password === password) {
-      setAccess(true);
-    }
-  };
+  function login(userData) {
+    const { username, password } = userData;
+    const URL = 'http://localhost:3001/rickandmorty/login/';
+    axios(URL + `?email=${username}&password=${password}`).then(({ data }) => {
+       const { access } = data;
+       setAccess(access);
+       access && navigate('/home');
+    });
+  }
 
   useEffect(() => {
     if (access) {
       navigate('/home');
-    }else{
-      navigate("/")
+    } else {
+      navigate("/");
     }
   }, [access, navigate]);
 
   return (
     <div className="App">
-      
       <h1>Personajes de Rick y Morty</h1>
-      {access ? <Navigation onSearch={onSearch}/> : null }
-      <Routes>
-        <Route path="/" element={<Form login={login} />}/>
+      {access && <Navigation onSearch={onSearch} />}
+      <router>
+        <Route path="/" element={<Form login={login} />} />
         <Route path="/home" element={<Cards characters={characters} />} />
         <Route path="/characterlist" element={<CharacterList />} />
-        <Route path="/SearchBar" element={<SearchBar />} />
-        <Route path="/Link" element={<Link />} />
-      </Routes>
-      
+        <Route path="/searchbar" element={<SearchBar />} />
+        <Route path="/link" element={<Link to="/" />} />
+      </router>
     </div>
   );
-};
+}
 
 export default PersonajesApp;
