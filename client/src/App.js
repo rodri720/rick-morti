@@ -14,17 +14,29 @@ function PersonajesApp() {
   const [characters, setCharacters] = useState([]);
   const [access, setAccess] = useState(false);
   const navigate = useNavigate();
-  //const username = 'ejemplo@gmail.com';
+ // const username = 'ejemplo@gmail.com';
   //const password = '123456';
 
-  const onSearch = (characterID) => {
+  /*const onSearch = (characterID) => {
     fetch(`https://rickandmortyapi.com/api/character/${characterID}`)
       .then((response) => response.json())
       .then((data) => setCharacters([...characters, data]))
       .catch((error) => console.log(error));
-  };
-
-  function login(userData) {
+  };*/
+  const onSearch = async (id) => {
+    try {
+    const { data } = await axios.get(`https://rickandmortyapi.com/api/character/${id}`);
+    const char = characters.find((char) => char.id === id);
+    if (id){
+      if (char) { return alert('El personaje ya existe'); }
+      setCharacters([...characters, data]);
+    }    
+  }  
+      catch (error) {
+      alert (error.message);
+  }
+}
+  /*function login(userData) {
     const { username, password } = userData;
     const URL = 'http://localhost:3001/rickandmorty/login/';
     axios(URL + `?email=${username}&password=${password}`).then(({ data }) => {
@@ -32,8 +44,19 @@ function PersonajesApp() {
        setAccess(access);
        access && navigate('/home');
     });
+  }*/
+const login = async (userData) => {
+  const { username, password } = userData;
+  const URL = 'http://localhost:3001/rickandmorty/login/';
+  try {
+    const { data } = await axios(URL + `?email=${username}&password=${password}`);
+    const { access } = data;
+    setAccess(access);
+    access && navigate('/home');
+  } catch (error) {
+    alert(error.message);
   }
-
+};
   useEffect(() => {
     if (access) {
       navigate('/home');
@@ -56,5 +79,5 @@ function PersonajesApp() {
     </div>
   );
 }
-
+    
 export default PersonajesApp;
